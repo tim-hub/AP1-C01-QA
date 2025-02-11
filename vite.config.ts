@@ -5,6 +5,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/ap1-c01-qa/', // GitHub Pages project site path (match repo name)
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
