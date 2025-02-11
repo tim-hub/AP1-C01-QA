@@ -83,13 +83,6 @@ const QAPage: React.FC = () => {
     await handleSave();
     if (!uuid) return;
 
-    const answeredIds = await db.answers.where('uuid').equals(uuid).primaryKeys();
-    // primaryKeys returns [uuid, question_number] arrays?
-    // Wait, compound index.
-    // It returns [uuid, question_number][]
-    
-    // Actually, I can use Collection.uniqueKeys() or just map.
-    // Let's fetch all answers for this UUID.
     const answers = await db.answers.where('uuid').equals(uuid).toArray();
     const answeredSet = new Set(answers.map(a => a.question_number));
     
@@ -113,7 +106,7 @@ const QAPage: React.FC = () => {
   if (!question) return <div>Question not found</div>;
 
   const correctIndices = question.choices
-    .map((c, i) => i)
+    .map((_, i) => i)
     .filter((i) => question.choices[i].is_correct);
   const correctCount = correctIndices.length;
   const isSingleSelect = correctCount === 1;

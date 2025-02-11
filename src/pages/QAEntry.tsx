@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db/db';
 import questions from '@AP1-C01/parsed_questions.json';
-import { Question } from '../types';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
