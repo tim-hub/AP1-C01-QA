@@ -4,6 +4,12 @@ Based on work from @aselitto [AP1-C01 repo](https://github.com/aselitto/AP1-C01)
 
 It used the source above to power a simple react QA app for users to pratice the exam sample questions.
 
+- Fully local
+- No analytics codes
+- Export / Import
+- Random questions
+- Summary based on topics
+
 
 ---
 
