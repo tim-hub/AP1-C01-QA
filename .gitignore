@@ -1,7 +1,7 @@
-dict
-build
+dist/
+build/
 cache
-node_modules
+node_modules/
 .env
 .env.local
 .env.development.local
