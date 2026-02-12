@@ -8,7 +8,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/ap1-c01-qa/', // GitHub Pages project site path (match repo name)
+  base: '/AP1-C01-QA/', // GitHub Pages project site path (match repo name)
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
