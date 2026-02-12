@@ -2,14 +2,16 @@
 
 Based on work from @aselitto [AP1-C01 repo](https://github.com/aselitto/AP1-C01) which contains 900 sample questions for AWS Certified AI Practitioner (AP1-C01) Preparation.
 
+It used the source above to power a simple react QA app for users to pratice the exam sample questions.
 
 
+---
 
 ## 📚 Additional Resources
 
-    AWS Exam Guide
-    Amazon Bedrock Documentation
-    Tutorials Dojo Practice Exams
+- [AWS Exam Guide](https://aws.amazon.com/certification/certified-generative-ai-developer-professional/)
+- [Amazon Bedrock Documentation](https://docs.aws.amazon.com/bedrock/)
+- [Tutorials Dojo Practice Exams](https://tutorialsdojo.com/)
 
 ## 📝 License
 
