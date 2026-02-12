@@ -1,30 +1,21 @@
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from '@/components/ui/sonner';
+import QAEntry from './pages/QAEntry';
+import QAPage from './pages/QAPage';
+import QASummary from './pages/QASummary';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Vite + React + Tailwind v4 + shadcn/ui</CardTitle>
-          <CardDescription>
-            A modern React setup with the latest versions
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-          <div className="text-center">
-            <p className="text-2xl font-semibold mb-4">Count: {count}</p>
-            <Button onClick={() => setCount((count) => count + 1)}>
-              Increment
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  )
+    <BrowserRouter>
+      <Toaster />
+      <Routes>
+        <Route path="/qa" element={<QAEntry />} />
+        <Route path="/qa/:uuid/summary" element={<QASummary />} />
+        <Route path="/qa/:uuid/:id" element={<QAPage />} />
+        <Route path="/" element={<Navigate to="/qa" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

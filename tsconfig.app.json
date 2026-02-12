@@ -12,6 +12,8 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "jsx": "react-jsx",
 
     /* Linting */
@@ -24,7 +26,8 @@
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@AP1-C01/*": ["./AP1-C01/*"]
     }
   },
   "include": ["src"]
