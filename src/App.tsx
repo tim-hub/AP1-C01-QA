@@ -4,9 +4,12 @@ import QAEntry from './pages/QAEntry';
 import QAPage from './pages/QAPage';
 import QASummary from './pages/QASummary';
 
+// BASE_URL from Vite (e.g. /AP1-C01-QA/); React Router basename has no trailing slash
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Toaster />
       <Routes>
         <Route path="/qa" element={<QAEntry />} />
