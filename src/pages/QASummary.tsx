@@ -7,6 +7,7 @@ import { Question } from '../types';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
 
 const QASummary: React.FC = () => {
   const { uuid } = useParams<{ uuid: string }>();
@@ -162,6 +163,95 @@ const QASummary: React.FC = () => {
                       </TableCell>
                     </TableRow>
                   ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Questions Answered</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Question #</TableHead>
+                  <TableHead>Question</TableHead>
+                  <TableHead>Your Answer(s)</TableHead>
+                  <TableHead>Correct Answer(s)</TableHead>
+                  <TableHead>Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {answers?.sort((a, b) => a.question_number - b.question_number).map((answer) => {
+                  const question = questions[answer.question_number - 1] as Question;
+                  if (!question) return null;
+                  
+                  const correctChoices = question.choices
+                    .map((choice, index) => ({ choice, index }))
+                    .filter(({ choice }) => choice.is_correct);
+                  
+                  const userChoices = answer.selected_choices.map(index => ({
+                    choice: question.choices[index],
+                    index
+                  }));
+                  
+                  const isCorrect = answer.selected_choices.length === correctChoices.length &&
+                    correctChoices.every(({ index }) => answer.selected_choices.includes(index));
+                  
+                  const isPartial = answer.selected_choices.length > 0 && 
+                    answer.selected_choices.some(index => correctChoices.some(({ index: correctIndex }) => correctIndex === index)) &&
+                    !isCorrect;
+                  
+                  return (
+                    <TableRow key={answer.question_number}>
+                      <TableCell>
+                        <Button 
+                          variant="link" 
+                          className="p-0 h-auto text-blue-600 hover:text-blue-800"
+                          onClick={() => navigate(`/qa/${uuid}/${answer.question_number}`)}
+                        >
+                          #{answer.question_number}
+                        </Button>
+                      </TableCell>
+                      <TableCell className="max-w-xs">
+                        <div className="truncate" title={question.question}>
+                          {question.question}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          {userChoices.map(({ choice, index }) => (
+                            <div key={index} className="text-sm">
+                              {choice.text.substring(0, 80)}
+                              {choice.text.length > 80 && '...'}
+                            </div>
+                          ))}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          {correctChoices.map(({ choice, index }) => (
+                            <div key={index} className="text-sm text-green-700">
+                              {choice.text.substring(0, 80)}
+                              {choice.text.length > 80 && '...'}
+                            </div>
+                          ))}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        {isCorrect ? (
+                          <Badge className="bg-green-100 text-green-800">Correct</Badge>
+                        ) : isPartial ? (
+                          <Badge className="bg-yellow-100 text-yellow-800">Partial</Badge>
+                        ) : (
+                          <Badge className="bg-red-100 text-red-800">Incorrect</Badge>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </CardContent>

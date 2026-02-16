@@ -66,14 +66,12 @@ const QAPage: React.FC = () => {
   };
 
   const handleNext = async () => {
-    await handleSave();
     if (questionId < totalQuestions) {
       navigate(`/qa/${uuid}/${questionId + 1}`);
     }
   };
 
   const handlePrev = async () => {
-    await handleSave();
     if (questionId > 1) {
       navigate(`/qa/${uuid}/${questionId - 1}`);
     }
@@ -151,7 +149,7 @@ const QAPage: React.FC = () => {
                 {question.choices.map((choice, index) => {
                   const isCorrectChoice = correctIndices.includes(index);
                   const isWrongSelected = revealed && selectedChoices.includes(index) && !isCorrectChoice;
-                  const highlightGreen = revealed && isCorrectChoice;
+                  const highlightGreen = revealed && isCorrectChoice && selectedChoices.includes(index);
                   const highlightRed = isWrongSelected;
                   const choiceBg = highlightGreen
                     ? 'bg-green-50 border-green-300'
@@ -180,7 +178,7 @@ const QAPage: React.FC = () => {
               question.choices.map((choice, index) => {
                 const isCorrectChoice = correctIndices.includes(index);
                 const isWrongSelected = revealed && selectedChoices.includes(index) && !isCorrectChoice;
-                const highlightGreen = revealed && isCorrectChoice;
+                const highlightGreen = revealed && isCorrectChoice && selectedChoices.includes(index);
                 const highlightRed = isWrongSelected;
                 const choiceBg = highlightGreen
                   ? 'bg-green-50 border-green-300'
@@ -226,18 +224,18 @@ const QAPage: React.FC = () => {
               >
                 Previous
               </Button>
-              {!revealed ? (
-                <Button onClick={handleAnswer} disabled={selectedChoices.length === 0}>
-                  Answer
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleNext}
-                  disabled={questionId >= totalQuestions}
-                >
-                  Next
-                </Button>
-              )}
+              <Button
+                variant="outline"
+                onClick={handleNext}
+                disabled={!revealed || questionId >= totalQuestions}
+              >
+                Next
+              </Button>
+            </div>
+            <div className="flex gap-2">
+              <Button onClick={handleAnswer} disabled={selectedChoices.length === 0}>
+                Answer
+              </Button>
             </div>
           </div>
         </CardContent>
