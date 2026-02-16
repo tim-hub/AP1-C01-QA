@@ -184,7 +184,7 @@ const QASummary: React.FC = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {answers?.sort((a, b) => a.question_number - b.question_number).map((answer) => {
+                {answers?.sort((a, b) => a.question_number - b.question_number).filter((answer) => answer.selected_choices.length > 0).map((answer) => {
                   const question = questions[answer.question_number - 1] as Question;
                   if (!question) return null;
                   
